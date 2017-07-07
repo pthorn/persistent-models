@@ -1,0 +1,35 @@
+{
+  "name": "persistent-models",
+  "version": "0.0.0",
+  "description": "Persistent model library suitable for React/Redux apps",
+  "main": "src/index.js",
+  "directories": {
+    "docs": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pthorn/persistent-models.git"
+  },
+  "author": "Thorn <p.thorn.ru@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/pthorn/persistent-models/issues"
+  },
+  "homepage": "https://github.com/pthorn/persistent-models#readme",
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "jest-cli": "^20.0.4",
+    "jsdom": "^11.1.0",
+    "yargs": "^7.1.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": "/tests/.*\\.js$"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
