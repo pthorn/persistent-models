@@ -21,3 +21,33 @@ export function normalizePath (path) {
 
     return path_split.value();
 }
+
+
+/**
+ * path: array of components
+ */
+export function getSchemaNodeByPath (schema, path) {
+    const schema_node = _.reduce(path, (node, comp) => node.getSchemaChild(comp), schema);
+
+    // TODO better error handling
+    if (_.isUndefined(schema_node)) {
+       throw new TypeError(`path does not exist in schema: ${JSON.stringify(path)}`);
+    }
+
+    return schema_node;
+}
+
+
+export function getDataNodeByPath (data, path) {
+    if (path.length === 0) {
+        return data;
+    }
+
+    const node =  _.get(data, path);
+
+    if (_.isUndefined(node)) {
+        throw new TypeError(`bad path "${path.join('.')}"`);
+    }
+
+    return node;
+}

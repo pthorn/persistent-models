@@ -1,7 +1,8 @@
-describe("path tests", function () {
-    const { normalizePath } = require('../src/path');
+const { normalizePath, getDataNodeByPath, getSchemaNodeByPath } = require('../src/path');
 
-    describe("normalizePath() tests", function () {
+
+describe("path", function () {
+    describe("normalizePath()", function () {
         it("accepts . and empty string", function () {
             expect(normalizePath('.')).toEqual([]);
             expect(normalizePath('')).toEqual([]);
@@ -20,5 +21,43 @@ describe("path tests", function () {
         it("accepts arrays", function () {
             expect(normalizePath(['a', 'b', 'c'])).toEqual(['a', 'b', 'c']);
         });
+    });
+
+    describe("getDataNodeByPath()", function () {
+        it("handles empty path", function () {
+            const data = {};
+            expect(getDataNodeByPath(data, [])).toBe(data);
+        });
+
+        it("returns data node", function () {
+            const data = {a: {b: {foo: 'foo'}}};
+            const path = ['a', 'b'];
+
+            expect(getDataNodeByPath(data, path)).toBe(data.a.b);
+        });
+
+        it("returns data node with lists", function () {
+            const data = {a: [{value: 'foo'}, {b: {value: 'bar'}}]};
+            const path = ['a', 1, 'b'];
+
+            expect(getDataNodeByPath(data, path)).toBe(data.a[1].b);
+        });
+
+        it("throws bad path error", function () {
+            const data = {a: {b: {value: 'foo'}}};
+            const path1 = ['a', 'c'];
+            const path2 = ['x', 'b'];
+
+            expect(() => getDataNodeByPath(data, path1)).toThrow(
+                new TypeError('bad path "a.c"')
+            );
+            expect(() => getDataNodeByPath(data, path2)).toThrow(
+                new TypeError('bad path "x.b"')
+            );
+        });
+    });
+
+    xdescribe("getSchemaNodeByPath()", function () {
+        // TODO
     });
 });
