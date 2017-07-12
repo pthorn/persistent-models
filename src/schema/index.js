@@ -75,7 +75,7 @@ export class Schema {
 
             return {
                 viewValue: new_view_val,
-                errors: {'$parser': ex.message}
+                $errors: {'$parser': ex.message}
             };
         }
 
@@ -109,7 +109,14 @@ export class Schema {
      * @return boolean
      */
     isValid(node) {
-        return _.isUndefined(_.find(node.$errors, el => el !== null));
+        return _.isEmpty(node.$errors);
+    }
+
+    /**
+     * @return object
+     */
+    getErrors(node) {
+        return node.$errors;
     }
 }
 

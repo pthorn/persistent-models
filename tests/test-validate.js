@@ -46,7 +46,7 @@ describe("validate tests", function() {
             }
         });
 
-        it("puts validation messages in new_data.errors", function () {
+        it("puts validation messages in new_data.$errors", function () {
             const validators = [{
                 key: 'validator0',
                 validate: function () {}
@@ -75,10 +75,10 @@ describe("validate tests", function() {
             const new_data = {};
             schema_node.validate(old_data, new_data);
 
-            expect(new_data.errors.validator0).toBeUndefined();
-            expect(new_data.errors.validator1).toBe('validator1 Invalid');
-            expect(new_data.errors.validator2).toBe('validator2 message');
-            expect(new_data.errors.validator3).toBeUndefined();
+            expect(new_data.$errors.validator0).toBeUndefined();
+            expect(new_data.$errors.validator1).toBe('validator1 Invalid');
+            expect(new_data.$errors.validator2).toBe('validator2 message');
+            expect(new_data.$errors.validator3).toBeUndefined();
         });
     });
 });

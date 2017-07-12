@@ -12,7 +12,7 @@ describe("Schema tests", function() {
             expect(data).toEqual({
                 value: null,
                 viewValue: null,
-                errors: {}
+                $errors: {}
             });
         });
 
@@ -25,7 +25,7 @@ describe("Schema tests", function() {
             expect(data).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
-                errors: {}
+                $errors: {}
             });
         });
     });
@@ -39,7 +39,7 @@ describe("Schema tests", function() {
             expect(data2).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
-                errors: {}
+                $errors: {}
             });
         });
 
@@ -79,7 +79,7 @@ describe("Schema tests", function() {
             expect(data2).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
-                errors: {}
+                $errors: {}
             });
         });
 
@@ -104,7 +104,7 @@ describe("Schema tests", function() {
             expect(parser1.mock.calls.length).toBe(1);
             expect(parser3.mock.calls.length).toBe(0);
 
-            expect(data2.errors).toEqual(jasmine.objectContaining({
+            expect(data2.$errors).toEqual(jasmine.objectContaining({
                 '$parser': 'test exception'
             }));
             expect(data2.value).toBeUndefined();

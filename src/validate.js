@@ -55,7 +55,7 @@ export const ValidateMixin = {
             }
         }
 
-        new_data.errors = errors;
+        new_data.$errors = errors;
 
         return new_data;
     }
