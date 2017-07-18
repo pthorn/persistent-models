@@ -105,34 +105,69 @@ describe("MapSchema tests", function() {
 
     describe(".setModelValue()", function () {
         const m = new MapSchema({
-            s: new Schema()
+            s: new Schema(),
+            t: new Schema()
         });
+
+        const expected_value = {
+            s: {
+                value: 'cat',
+                viewValue: 'cat',
+                $errors: {}
+            },
+            t: {
+                value: 'dog',
+                viewValue: 'dog',
+                $errors: {}
+            },
+            $errors: {}
+        };
 
         const error = new TypeError('MapSchema.setModelValue(): argument must be an object');
 
         it("throws when called with a non-object", function () {
             expect(() => m.setModelValue({}, 'meow')).toThrow(error);
-
             expect(() => m.setModelValue({}, [])).toThrow(error);
         });
 
-        it("formats", function () {
+        xit("sets values", function () {
+            const new_value = {
+                s: 'cat',
+                t: 'dog'
+            };
+
             const node = m.createData();
 
-            // TODO ?
-            expect(m.setModelValue(node, {
-                s: 'cat'
-            })).toEqual({
+            expect(m.setModelValue(node, new_value)).toEqual(expected_value);
+            expect(m.setModelValue({}, new_value)).toEqual(expected_value);
+            expect(m.setModelValue(undefined, new_value)).toEqual(expected_value);
+        });
+
+        it("sets partial values", function () {
+            const node = {
                 s: {
                     value: 'cat',
                     viewValue: 'cat',
-                    errors: {}
+                    $errors: {}
                 },
-                errors: {}
+                t: {
+                    value: null,
+                    viewValue: null,
+                    $errors: {}
+                },
+                $errors: {}
+            };
+
+            const new_node = m.setModelValue(node, {
+                t: 'dog'
             });
+
+            expect(new_node).toEqual(expected_value);
+            // TODO expect(new_node.s).toBe(expected_value.s);
         });
     });
 
+    // TODO same tests as for setModelValue
     describe(".setViewValue()", function () {
         const m = new MapSchema({
             s: new Schema()
@@ -155,9 +190,9 @@ describe("MapSchema tests", function() {
                 s: {
                     value: 'foo',
                     viewValue: 'foo',
-                    errors: {}
+                    $errors: {}
                 },
-                errors: {}
+                $errors: {}
             });
         });
     });

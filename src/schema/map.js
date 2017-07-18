@@ -57,7 +57,8 @@ class MapSchema {
         }
 
         let new_data = this._mapSchemaChildren(data, new_val,
-            (child, node, arg) => child.setModelValue(node, arg));
+            (schema_child, data_child, arg_child) =>
+                schema_child.setModelValue(data_child, arg_child));
 
         return this.validate(data, new_data);  // TODO 1st arg?
     }
@@ -127,17 +128,14 @@ class MapSchema {
     }
 
     _mapSchemaChildren(node, arg, fn) {
-        const NONE = {};
-
-        const result = _(this.children).mapValues((child, name) => {
-            if (name in arg) {
-                return fn(child, node[name], arg[name]);
+        return _.mapValues(this.children, (schema_child, key) => {
+            const node_child = _.isUndefined(node) ? {} : node[key];
+            if (key in arg) {
+                return fn(schema_child, node_child, arg[key]);
             } else {
-                return NONE;
+                return node_child;
             }
         });
-
-        return result.pickBy((el) => el !== NONE).value();
     }
 }
 
