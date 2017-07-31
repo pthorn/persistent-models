@@ -44,7 +44,8 @@ export class Schema {
 
         return this.validate(data, {
             value: new_val,
-            viewValue: new_view_val
+            viewValue: new_view_val,
+            $dirty: !!data.$dirty
         });
     }
 
@@ -75,13 +76,15 @@ export class Schema {
 
             return {
                 viewValue: new_view_val,
+                $dirty: true,
                 $errors: {'$parser': ex.message}
             };
         }
 
         return this.validate(data, {
             value: new_val,
-            viewValue: new_view_val
+            viewValue: new_view_val,
+            $dirty: true
         });
     }
 

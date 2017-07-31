@@ -12,6 +12,7 @@ describe("Schema tests", function() {
             expect(data).toEqual({
                 value: null,
                 viewValue: null,
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -25,6 +26,7 @@ describe("Schema tests", function() {
             expect(data).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -39,6 +41,7 @@ describe("Schema tests", function() {
             expect(data2).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -65,8 +68,12 @@ describe("Schema tests", function() {
             expect(formatters[1].mock.calls[0][0]).toBe('b');
             expect(formatters[2].mock.calls[0][0]).toBe('c');
 
-            expect(data.value).toEqual('a');
-            expect(data.viewValue).toEqual('d');
+            expect(data).toEqual({
+                value: 'a',
+                viewValue: 'd',
+                $dirty: false,
+                $errors: {}
+            });
         });
     });
 
@@ -79,6 +86,7 @@ describe("Schema tests", function() {
             expect(data2).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
+                $dirty: true,
                 $errors: {}
             });
         });
@@ -104,12 +112,13 @@ describe("Schema tests", function() {
             expect(parser1.mock.calls.length).toBe(1);
             expect(parser3.mock.calls.length).toBe(0);
 
-            expect(data2.$errors).toEqual(jasmine.objectContaining({
-                '$parser': 'test exception'
-            }));
-            expect(data2.value).toBeUndefined();
-            // view value should always change to provide feedback for the user
-            expect(data2.viewValue).toBe('42');
+            expect(data2).toEqual({
+                viewValue: '42',  // view value should always change to provide feedback for the user
+                $dirty: true,
+                $errors: {
+                    '$parser': 'test exception'
+                }
+            });
         });
 
         xit("calls validate()", function () {
