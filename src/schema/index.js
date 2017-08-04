@@ -121,6 +121,13 @@ export class Schema {
     getErrors(node) {
         return node.$errors;
     }
+
+    /**
+     * @return boolean
+     */
+    isDirty(data) {
+        return data.$dirty;
+    }
 }
 
 _.assign(Schema.prototype, ValidateMixin);

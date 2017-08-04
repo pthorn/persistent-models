@@ -78,6 +78,10 @@ function Model(schema, data, path = "") {
         getErrors() {
             return schema_node.getErrors(data_node);
         },
+
+        isDirty() {
+            return schema_node.isDirty(data_node);
+        }
     }
 }
 

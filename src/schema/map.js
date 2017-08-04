@@ -122,6 +122,11 @@ class MapSchema {
         return children_valid.every();
     }
 
+    isDirty(data) {
+        return _.some(
+            _.map(this.children, (child, key) => child.isDirty(data[key])));
+    }
+
     map(node, fn) {
         //return node.children.map(fn);
         return _.map(node.children, fn);
