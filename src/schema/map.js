@@ -108,16 +108,13 @@ class MapSchema {
             (child, node, arg) => child.setFromJSON(node, arg));
     }
 
-    isValid(node) {
-        const me_valid = _.isUndefined(_.find(node.errors, el => el !== null));
-        if (!me_valid) {
+    isValid(data) {
+        if (!_.isEmpty(data.$errors)) {
             return false;
         }
 
-        const children_valid = _(this.children).map((child, name) =>
-            child.isValid(node.children[name]));
-
-        //console.log('MapSchema.isValid(): children_valid:', children_valid);
+        const children_valid = _(this.children).map((child, key) =>
+            child.isValid(data[key]));
 
         return children_valid.every();
     }
