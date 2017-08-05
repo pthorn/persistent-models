@@ -15,7 +15,7 @@ export function normalizePath (path) {
     path_split = path_split.filter(el =>
         el !== ''
     ).map(el => {
-        const el_as_int = parseInt(el);
+        const el_as_int = parseInt(el, 10);
         return _.isNaN(el_as_int) ? el : el_as_int;
     });
 
