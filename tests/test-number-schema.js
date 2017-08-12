@@ -10,6 +10,7 @@ describe("NumberSchema", function() {
             expect(data).toEqual({
                 value: null,
                 viewValue: '',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -21,6 +22,7 @@ describe("NumberSchema", function() {
             expect(data).toEqual({
                 value: 42,
                 viewValue: '42',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -34,6 +36,7 @@ describe("NumberSchema", function() {
             expect(data).toEqual({
                 value: 42,
                 viewValue: '42',
+                $dirty: true,
                 $errors: {}
             });
         });
@@ -45,6 +48,7 @@ describe("NumberSchema", function() {
             expect(data).toEqual({
                 value: 66,
                 viewValue: '42',
+                $dirty: true,
                 $errors: {}
             });
         });
@@ -56,6 +60,7 @@ describe("NumberSchema", function() {
             expect(data).toEqual({
                 value: 42.3,
                 viewValue: '42.3',
+                $dirty: true,
                 $errors: {}
             });
         });
@@ -66,6 +71,7 @@ describe("NumberSchema", function() {
 
             expect(data).toEqual({
                 viewValue: 'abc',
+                $dirty: true,
                 $errors: {'$parser': s.options.parser_message}
             });
         });

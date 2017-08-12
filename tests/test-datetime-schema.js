@@ -11,6 +11,7 @@ describe("DateTimeSchema", function() {
             expect(data).toEqual({
                 value: null,
                 viewValue: '',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -24,6 +25,7 @@ describe("DateTimeSchema", function() {
             expect(data).toEqual({
                 value: now,
                 viewValue: moment(now).format(s.options.view_format),
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -36,6 +38,7 @@ describe("DateTimeSchema", function() {
 
             expect(data).toEqual({
                 viewValue: 'abc',
+                $dirty: true,
                 $errors: {'$parser': s.options.parser_message}
             });
         });

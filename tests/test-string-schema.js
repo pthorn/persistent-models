@@ -10,6 +10,7 @@ describe("StringSchema", function() {
             expect(data).toEqual({
                 value: '',
                 viewValue: '',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -21,6 +22,7 @@ describe("StringSchema", function() {
             expect(data).toEqual({
                 value: 'abc',
                 viewValue: 'abc',
+                $dirty: false,
                 $errors: {}
             });
         });
@@ -34,6 +36,7 @@ describe("StringSchema", function() {
             expect(data).toEqual({
                 value: 'b',
                 viewValue: '  b ',
+                $dirty: true,
                 $errors: {}
             });
         });
@@ -45,6 +48,7 @@ describe("StringSchema", function() {
             expect(data).toEqual({
                 value: '  b ',
                 viewValue: '  b ',
+                $dirty: true,
                 $errors: {}
             });
         });
