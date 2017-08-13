@@ -35,15 +35,19 @@ describe("Schema tests", function() {
     describe(".setModelValue()", function () {
         it("sets value", function () {
             const s = new Schema();
-            const data = s.createData();
-            const data2 = s.setModelValue(data, 'abc');
 
-            expect(data2).toEqual({
+            const expected_data = {
                 value: 'abc',
                 viewValue: 'abc',
                 $dirty: false,
                 $errors: {}
-            });
+            };
+
+            const data = s.createData();
+            expect(s.setModelValue(data, 'abc')).toEqual(expected_data);
+
+            expect(s.setModelValue({}, 'abc')).toEqual(expected_data);
+            expect(s.setModelValue(undefined, 'abc')).toEqual(expected_data);
         });
 
         it("calls formatters", function () {
