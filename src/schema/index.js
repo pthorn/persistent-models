@@ -32,15 +32,12 @@ export class Schema {
     /**
      * @return new data
      */
-    setModelValue(data, new_val) {
-        let new_view_val = new_val;
-        for (let fn of this.formatters) {
-            new_view_val = fn.call(this, new_view_val);
-            // TODO
-            if (_.isUndefined(new_view_val)) {
-                return;
-            }
-        }
+    setModelValue(data = {$dirty: false}, new_val) {
+        const new_view_val = _.reduce(
+            this.formatters,
+            (acc, fn) => fn.call(this, acc),
+            new_val
+        );
 
         return this.validate(data, {
             value: new_val,
@@ -58,18 +55,14 @@ export class Schema {
      * TODO implement setValid() for parsers like in validators
      */
     setViewValue(data, new_view_val) {
-        let new_val = new_view_val;
-
+        let new_val;
         try {
-            for (let fn of this.parsers) {
-                new_val = fn.call(this, new_val);
-                // TODO ?
-                //if (_.isUndefined(new_val)) {
-                //    break;
-                //}
-            }
+            new_val = _.reduce(
+                this.parsers,
+                (acc, fn) => fn.call(this, acc),
+                new_view_val
+            );
         } catch (ex) {
-            //console.log('CATCH', ex);
             if (!(ex instanceof Invalid)) {
                 throw ex;
             }
