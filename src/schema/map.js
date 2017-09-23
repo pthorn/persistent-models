@@ -81,7 +81,8 @@ class MapSchema {
         }
 
         let new_data = this._mapSchemaChildren(data, new_view_val,
-            (child, node, arg) => child.setViewValue(node, arg));
+            (schema_child, data_child, arg_child) =>
+                schema_child.setViewValue(data_child, arg_child));
 
         return this.validate(data, new_data);  // TODO 1st arg?
     }
