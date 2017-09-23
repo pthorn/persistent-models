@@ -63,10 +63,10 @@ describe("MapSchema tests", function() {
     describe(".setChild()", function () {
         const s = new Schema();
         const m = new MapSchema({
-            s: s
+            s
         });
 
-        it("creates data with no options", function () {
+        it("alters child data in a persistent way", function () {
             const data = m.createData();
             const new_s_data = s.setModelValue('abc');
             const new_data = m.setChild(data, 's', new_s_data);
@@ -75,7 +75,7 @@ describe("MapSchema tests", function() {
             expect(new_data.s).toBe(new_s_data);
         });
 
-        xit("creates data with no options", function () {
+        it("throws when child does not exist", function () {
             const data = m.createData();
             const new_s_data = s.setModelValue('abc');
 

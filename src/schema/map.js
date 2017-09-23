@@ -19,7 +19,7 @@ class MapSchema {
     }
 
     /**
-     * returns child schema node
+     * @return child schema node
      */
     getSchemaChild(child_id) {
         if (!this.children.hasOwnProperty(child_id)) {  // TODO startswith $
@@ -35,9 +35,13 @@ class MapSchema {
         return this.validate({}, child_nodes);  // TODO 1st arg?
     }
 
-    setChild(data, key, new_child_data) {
+    setChild(data, child_id, new_child_data) {
+        if (!this.children.hasOwnProperty(child_id)) {  // TODO startswith $
+            throw new Error(`bad schema child ${child_id}`);
+        }
+
         let new_data = _.assign({}, data, {
-            [key]: new_child_data
+            [child_id]: new_child_data
         });
 
         return this.validate({}, new_data);  // TODO 1st arg?
