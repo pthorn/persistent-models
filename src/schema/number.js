@@ -33,7 +33,16 @@ function NumberSchema(options) {
     };
 
     const formatter = function (value) {
-        return value === null ? '' : value.toString();
+
+        if (value === null) {
+            return '';
+        }
+
+        if (this.options.format === 'hex') {
+            return value.toString(16);
+        }
+
+        return value.toString();
     };
 
     const schema = new Schema(_.assign({

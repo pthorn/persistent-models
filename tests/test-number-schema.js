@@ -28,6 +28,33 @@ describe("NumberSchema", function() {
         });
     });
 
+    describe(".setModelValue()", function() {
+        it("formats int", function () {
+            const s = new NumberSchema();
+            const data = s.setModelValue({}, 32);
+
+            expect(data).toEqual({
+                value: 32,
+                viewValue: '32',
+                $dirty: false,
+                $errors: {}
+            });
+        });
+
+        it("formats hex int", function () {
+            const s = new NumberSchema({format: 'hex'});
+            const data = s.setModelValue({}, 32);
+
+            expect(data).toEqual({
+                value: 32,
+                viewValue: '20',
+                $dirty: false,
+                $errors: {}
+            });
+        });
+    });
+
+
     describe(".setViewValue()", function() {
         it("parses int", function () {
             const s = new NumberSchema();
