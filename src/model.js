@@ -81,6 +81,70 @@ function Model(schema, data, path = "") {
 
         isDirty() {
             return schema_node.isDirty(data_node);
+        },
+
+        //
+        // List-specific methods
+        //
+
+        size() {
+            return schema_node.size(data_node);
+        },
+
+        map(fn) {
+            return schema_node.map(data_node, fn);
+        },
+
+        /**
+         * @return new data
+         */
+        filter(fn) {
+            return propagate(
+                norm_path,
+                schema,
+                data,
+                (leaf_schema_node, leaf_data_node) =>
+                    leaf_schema_node.filter(leaf_data_node, fn)
+            );
+        },
+
+        /**
+         * @return new data
+         */
+        add() {
+            return propagate(
+                norm_path,
+                schema,
+                data,
+                (leaf_schema_node, leaf_data_node) =>
+                    leaf_schema_node.add(leaf_data_node)
+            );
+        },
+
+        /**
+         * @return new data
+         */
+        move(index_from, index_to) {
+            return propagate(
+                norm_path,
+                schema,
+                data,
+                (leaf_schema_node, leaf_data_node) =>
+                    leaf_schema_node.move(leaf_data_node, index_from, index_to)
+            );
+        },
+
+        /**
+         * @return new data
+         */
+        removeAt(index) {
+            return propagate(
+                norm_path,
+                schema,
+                data,
+                (leaf_schema_node, leaf_data_node) =>
+                    leaf_schema_node.removeAt(leaf_data_node, index)
+            );
         }
     }
 }
