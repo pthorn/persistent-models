@@ -47,40 +47,26 @@ describe("ListSchema", function() {
         });
     });
 
-    describe("accessors", function () {
-        const s = new Schema({initialValue: 'foo'});
-        const m = new ListSchema(s);
-        const node = m.createData();
-
-        // TODO
-        xit(".getModelValue()", function () {
-            const value = m.getModelValue(node);
-
-            expect(value).toEqual({s: 'foo'});
-        });
-
-        // TODO
-        xit(".getViewValue()", function () {
-            const value = m.getViewValue(node);
-
-            expect(value).toEqual({s: 'foo'});
-        });
-    });
-
     describe(".setModelValue()", function() {
         const s = new Schema();
         const m = new ListSchema(s);
 
-        it("throws when setModelValue() is called with a non-list", function () {
+        it("throws when setModelValue() is called with a non-array", function () {
             const error = new TypeError('ListSchema.setModelValue(): argument must be an array');
 
             expect(() => m.setModelValue('meow')).toThrow(error);
             expect(() => m.setModelValue({})).toThrow(error);
         });
 
-        // TODO
-        xit("sets values", function () {
-            console.log('FORMAT', m.setModelValue([], ['a', 'b']));
+        it("sets values", function () {
+            const data = m.setModelValue(m.createData(), ['a', 'b']);
+
+            expect(Array.from(data)).toEqual([
+                { value: 'a', viewValue: 'a', $dirty: false, $errors: {} },
+                { value: 'b', viewValue: 'b', $dirty: false, $errors: {} }
+            ]);
+            expect(data.$errors).toEqual({});
+            //expect(data.$dirty).toEqual(false);
         });
     });
 
@@ -95,18 +81,33 @@ describe("ListSchema", function() {
             expect(() => m.setViewValue({})).toThrow(error);
         });
 
-        // TODO
-        xit("parses", function () {
+        it("sets view values", function () {
+            const data = m.setViewValue(m.createData(), ['a', 'b']);
 
-            console.log('PARSE', m.parse({
-                //s: 'cat'
-            }));
+            expect(Array.from(data)).toEqual([
+                { value: 'a', viewValue: 'a', $dirty: true, $errors: {} },
+                { value: 'b', viewValue: 'b', $dirty: true, $errors: {} }
+            ]);
+            expect(data.$errors).toEqual({});
+            //expect(data.$dirty).toEqual(true);
+        });
+    });
 
-            //console.log('SCHEMA', m.children);
-            //console.log('DATA', data);
+    describe("accessors", function () {
+        const s = new Schema({initialValue: 'foo'});
+        const m = new ListSchema(s);
+        const data = m.setModelValue(m.createData(), ['a', 'b']);
 
-            //expect(data.value).toBeNull();
-            //expect(data.viewValue).toEqual('');
+        it(".getModelValue()", function () {
+            const value = m.getModelValue(data);
+
+            expect(value).toEqual(['a', 'b']);
+        });
+
+        it(".getViewValue()", function () {
+            const value = m.getViewValue(data);
+
+            expect(value).toEqual(['a', 'b']);
         });
     });
 

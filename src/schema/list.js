@@ -49,7 +49,6 @@ class ListSchema {
             this.child.getModelValue(data_child));
     }
 
-    // TODO!
     /**
      * @return new data
      */
@@ -72,7 +71,6 @@ class ListSchema {
             this.child.getViewValue(data_child));
     }
 
-    // TODO!
     /**
      * @return transaction
      */
@@ -81,7 +79,7 @@ class ListSchema {
             throw new TypeError('ListSchema.setViewValue(): argument must be an array')
         }
 
-        let new_data = new_val.map((arg_child, i) =>
+        let new_data = new_view_val.map((arg_child, i) =>
             this.child.setViewValue(data[i], arg_child));
 
         return this.validate(data, new_data);  // TODO 1st arg?
