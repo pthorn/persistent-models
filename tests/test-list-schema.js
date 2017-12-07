@@ -4,10 +4,17 @@ const { Schema } = require('../src/schema');
 
 describe("ListSchema", function() {
     describe("ListSchema()", function() {
-        const error = new TypeError('ListSchema: child must be an object');
+        const error = new TypeError('ListSchema: child must be a schema object');
 
         it("throws when no children are supplied", function () {
             expect(() => new ListSchema()).toThrow(error);
+        });
+
+        it("throws when children are supplied improperly", function () {
+            const s = new Schema();
+
+            expect(() => new ListSchema([s])).toThrow(error);
+            expect(() => new ListSchema({})).toThrow(error);
         });
 
         it("creates", function () {

@@ -8,8 +8,8 @@ import { ValidateMixin } from '../validate';
  */
 class ListSchema {
     constructor(child, options) {
-        if (!_.isObject(child)) {
-            throw new TypeError('ListSchema: child must be an object');
+        if (child === undefined || child.createData === undefined) {
+            throw new TypeError('ListSchema: child must be a schema object');
         }
 
         this.options = _.assign({}, options);
