@@ -10,10 +10,12 @@ class MapSchema {
         }
 
         this.options = _.assign({
+            includeIf: true,
             submit: true
         }, options);
 
-        this.children = _.pickBy(children, (child) => !!child);
+        this.children = _.pickBy(children, child =>
+            !!child && child.options.includeIf);
 
         this.initValidateMixin();
     }

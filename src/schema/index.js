@@ -6,6 +6,7 @@ import { ValidateMixin, Invalid } from '../validate';
 export class Schema {
     constructor(options) {
         this.options = _.assign({
+            includeIf: true,
             initialValue: null,
             submit: true
         }, options);

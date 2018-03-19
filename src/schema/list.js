@@ -12,7 +12,10 @@ class ListSchema {
             throw new TypeError('ListSchema: child must be a schema object');
         }
 
-        this.options = _.assign({}, options);
+        this.options = _.assign({
+            includeIf: true,
+            submit: true
+        }, options);
         this.child = child;
 
         this.initValidateMixin();
