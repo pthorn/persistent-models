@@ -6,3 +6,4 @@ export { default as DateTimeSchema } from './schema/datetime';
 export { default as MapSchema } from './schema/map';
 export { default as ListSchema } from './schema/list';
 export { Invalid } from './validate';
+export { required, length, identifier, email, range, uuid } from './validators';
