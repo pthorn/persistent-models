@@ -133,6 +133,12 @@ class ListSchema {
         return children_valid.every();
     }
 
+    getErrors(data) {
+        // TODO!
+        return _.map(data, data_child =>
+            this.child.getErrors(data_child));
+    }
+
     //
     // List-specific methods
     //

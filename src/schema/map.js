@@ -126,6 +126,17 @@ class MapSchema {
         return children_valid.every();
     }
 
+    getErrors(data) {
+        const errors = _.mapValues(this.children, (child_schema_node, key) =>
+            child_schema_node.getErrors(data[key]));
+
+        if (!_.isEmpty(data.$errors)) {
+            errors[''] = data.$errors;
+        }
+
+        return errors;
+    }
+
     isDirty(data) {
         return _.some(
             _.map(this.children, (child, key) => child.isDirty(data[key])));
