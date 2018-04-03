@@ -54,7 +54,6 @@ describe("NumberSchema", function() {
         });
     });
 
-
     describe(".setViewValue()", function() {
         it("parses int", function () {
             const s = new NumberSchema();

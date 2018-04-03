@@ -24,7 +24,7 @@ function DateTimeSchema(options) {
     const formatter = function (value) {
         if (value === null) {
             return '';
-    }
+        }
 
         return moment(value).format(this.options.view_format);
     };
